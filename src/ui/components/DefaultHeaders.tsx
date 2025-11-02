@@ -1,17 +1,21 @@
-import MenuButton from "@/ui/components/ClickIcon";
-import { Menu } from "lucide-react-native";
+import CLickIcon from "@/ui/components/ClickIcon";
+import { useNavigation, usePathname } from "expo-router";
+import { ArrowBigLeft } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
     headerTitle?: string;
-    onPress: () => void;
 }
 
-export default function DefaultHeader({ onPress, headerTitle } : Props ) {
+export default function DefaultHeader({ headerTitle } : Props ) {
+  const pathname = usePathname();
+  const navigation = useNavigation();
+  const isHomeScreen = pathname === "/";
+
     return(
         <View style={Styles.header} pointerEvents="box-none">
             <Text style={Styles.headerTitle} pointerEvents="none">{headerTitle}</Text>
-            <MenuButton onPress={onPress} icon={Menu}/>
+            {!isHomeScreen && <CLickIcon onPress={() => navigation.goBack} icon={ArrowBigLeft}/>}
         </View>
     );
 }

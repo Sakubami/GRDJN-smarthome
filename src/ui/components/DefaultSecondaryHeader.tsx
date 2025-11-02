@@ -1,14 +1,21 @@
-import MenuButton from "@/ui/components/ClickIcon";
-import { Home } from "lucide-react-native";
+import CLickIcon from "@/ui/components/ClickIcon";
+import { router, usePathname } from "expo-router";
+import { Home, Paperclip, SatelliteDish } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
 
-type Props = {
-}
-
 export default function DefaultSecondaryHeader() {
+    const pathname = usePathname();
+
+    const handleChangeScreen = (path: string) => {
+        if (pathname === path) return;
+        router.push(path);
+    }
+
     return (
         <View style={Styles.header} pointerEvents="box-none">
-            <MenuButton onPress={() => console.log("stuff made here")} icon={Home}/>
+            <CLickIcon onPress={() => handleChangeScreen("/")} icon={Home}/>
+            <CLickIcon onPress={() => router.push("/")} icon={Paperclip}/>
+            <CLickIcon onPress={() => handleChangeScreen("/devices")} icon={SatelliteDish}/>
         </View>
     );
 }
