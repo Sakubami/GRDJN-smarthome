@@ -27,8 +27,7 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     height: 58,
-    backgroundColor: "#fff",
-    borderColor: "#fff"
+    backgroundColor: "#fff"
   },
   headerTitle: { fontSize: 20, fontWeight: "600", textAlign: "center", left: 0, right: 0, position: "absolute"},
   divider: {
