@@ -25,7 +25,7 @@ export default function Devices() {
     ]
      return (
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
-            <DefaultHeader headerTitle="Devices"/>
+            <DefaultHeader headerTitle="Geräte" createSeparation={true}/>
             <DefaultSecondaryHeader/>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{padding: 16}}>
                 <View style={Styles.tilesGrid}>

@@ -5,9 +5,10 @@ import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
     headerTitle?: string;
+    createSeparation: boolean;
 }
 
-export default function DefaultHeader({ headerTitle } : Props ) {
+export default function DefaultHeader({ headerTitle, createSeparation } : Props ) {
   const pathname = usePathname();
   const isHomeScreen = pathname === "/";
 
@@ -15,7 +16,7 @@ export default function DefaultHeader({ headerTitle } : Props ) {
         <View style={Styles.header} pointerEvents="box-none">
             <Text style={Styles.headerTitle} pointerEvents="none">{headerTitle}</Text>
             {!isHomeScreen && <CLickIcon onPress={() => router.back()} icon={ArrowBigLeft}/>}
-            <View style={[Styles.divider, {position: "relative", bottom: -29}]}/>
+            {createSeparation && <View style={[Styles.divider, {position: "relative", bottom: -29}]}/>}
         </View>
     );
 }

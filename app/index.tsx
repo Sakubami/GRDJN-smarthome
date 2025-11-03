@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
     return(
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
-            <DefaultHeader headerTitle="Home"/>
+            <DefaultHeader headerTitle="Home" createSeparation={true}/>
             <DefaultSecondaryHeader/>
         </SafeAreaView>
     );
