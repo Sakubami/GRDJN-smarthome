@@ -7,18 +7,19 @@ type Props = {
   devices?: number;
   onPress?: () => void;
   style?: ViewStyle | ViewStyle[];
+  blank: boolean;
 };
 
-export default function TileCard({ title, icon: Icon, devices, onPress, style}: Props) {
+export default function TileCard({ title, icon: Icon, devices, onPress, style, blank}: Props) {
   return (
     <Pressable style={[Styles.card, style]} onPress={onPress}>
       <View style={Styles.cardHeader}>
         <Icon size={24} strokeWidth={1.5} margin={8}/>
         <Text style={Styles.title}>{title}</Text>
       </View>
-        <View style={[Styles.divider, {position: "relative", top: 0}]}></View>
+        {!blank && (<View style={[Styles.divider, {position: "relative", top: 0}]}/>)}
         {devices !== undefined && <Text style={Styles.devices}>{devices} devices</Text>}
-        <View style={[Styles.divider, {position: "relative", bottom: -5}]}></View>
+        {!blank && (<View style={[Styles.divider, {position: "relative", bottom: -5}]}/>)}
     </Pressable>
   );
 }
