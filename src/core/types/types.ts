@@ -1,5 +1,6 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { FC } from "react";
+import { ViewStyle } from "react-native";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -7,6 +8,16 @@ export type RootStackParamList = {
   Devices: undefined;
   Options: undefined;
   CreateScene: undefined;
+};
+
+export type TileCardT = {
+    id: string;
+    title: string;
+    icon: React.ElementType;
+    devices?: number;
+    onPress?: () => void;
+    style?: ViewStyle | ViewStyle[];
+    blank: boolean;
 };
 
 export type WeightedScreen = FC & {
@@ -27,13 +38,5 @@ export type LightSceneTileWithLoad = {
     icon: React.ElementType;
     onPress: () => void;
     payload?: LightScenePayload;
-    blank: boolean;
-}
-
-export type MainMenuTile = {
-    id: string,
-    title: string;
-    icon: React.ElementType;
-    onPress: () => void;
     blank: boolean;
 }

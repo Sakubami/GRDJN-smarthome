@@ -1,44 +1,46 @@
 import { useNavigation } from "@react-navigation/native";
-import { Home, Paperclip } from "lucide-react-native";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { DeviceStatus } from "src/core/devices/DeviceManager";
+import { loadScenes } from "src/core/lighting/StorageManager";
 import { useBaseScreenControls } from "src/core/navigation/NavManager";
-import { NavigationProp } from "src/core/types/types";
+import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
 import TileCard from "../src/ui/components/TileCard";
 
-type Tile = {
-    id: string;
-    title: string;
-    icon: React.ElementType;
-    devices: number;
-    onPress: () => void;
-}
-
 export default function Devices() {
     useBaseScreenControls();
     
-    const tiles: Tile[] = [
-        {id: "1", title: "Lichter", icon: Home, devices: 3, onPress: () => navigation.navigate("Options")},
-        {id: "2", title: "Server", icon: Paperclip, devices: 1, onPress: () => DeviceStatus("2")},
-        {id: "3", title: "test 1", icon: Paperclip, devices: 1, onPress: () => DeviceStatus("3")},
-        {id: "4", title: "test", icon: Paperclip, devices: 1, onPress: () => DeviceStatus("4")},
-        {id: "5", title: "test", icon: Paperclip, devices: 1, onPress: () => DeviceStatus("5")},
-    ]
+    const [tiles, setTiles] = useState<LightSceneTileWithLoad[]>([]);
     const navigation = useNavigation<NavigationProp>();
-     return (
+    
+    useEffect(() => {
+        (async () => {
+            const savedScenes = await loadScenes();
+            setTiles(savedScenes) 
+        })();
+    }, []);
+
+    return (
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
             <DefaultHeader headerTitle="Geräte" createSeparation={true}/>
             <DefaultSecondaryHeader/>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{padding: 16}}>
                 <View style={Styles.tilesGrid}>
-                    {tiles.map((tile) => <TileCard key={tile.id} title={tile.title} icon={tile.icon} devices={tile.devices} style={{ width: "48%", marginBottom: 8 }} onPress={tile.onPress} blank={false}/> )}
+                    {tiles.map((tile) => 
+                        <TileCard 
+                        id={tile.id}
+                        title={tile.title} 
+                        icon={tile.icon} 
+                        devices={tile.devices} 
+                        style={{ width: "48%", marginBottom: 8 }}
+                        blank = {tile.blank}
+                        onPress={tile.onPress}/> )}
                 </View>
             </ScrollView>
         </SafeAreaView>
-    );
+     );
 }
 
 const Styles = StyleSheet.create({

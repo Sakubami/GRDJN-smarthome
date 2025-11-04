@@ -3,7 +3,7 @@ import { usePathname } from "expo-router";
 import { ArrowBigLeft } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationProp } from "src/core/types/types";
-import CLickIcon from "src/ui/components/ClickIcon";
+import MenuButton from "./MenuButton";
 
 type Props = {
     headerTitle?: string;
@@ -19,7 +19,7 @@ export default function DefaultHeader({ headerTitle, createSeparation } : Props 
     return(
         <View style={Styles.header} pointerEvents="box-none">
             <Text style={Styles.headerTitle} pointerEvents="none">{headerTitle}</Text>
-            {!isDefaultScreen && <CLickIcon onPress={() => navigation.goBack()} icon={ArrowBigLeft}/>}
+            {!isDefaultScreen && <MenuButton onPress={() => navigation.goBack()} icon={ArrowBigLeft}/>}
             {createSeparation && <View style={[Styles.divider, {position: "relative", bottom: -29}]}/>}
         </View>
     );

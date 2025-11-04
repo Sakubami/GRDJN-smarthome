@@ -3,11 +3,12 @@ import { Edit } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { loadTiles } from "src/core/lighting/LightingManager";
+import { loadScenes } from "src/core/lighting/StorageManager";
 import { useBaseScreenControls } from "src/core/navigation/NavManager";
 import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
+import { v4 as uuidv4 } from 'uuid';
 import TileCard from "../src/ui/components/TileCard";
 
 export default function Lighting() {
@@ -18,10 +19,10 @@ export default function Lighting() {
     
     useEffect(() => {
         (async () => {
-            const savedScenes = await loadTiles();
+            const savedScenes = await loadScenes();
 
             const tile_create: LightSceneTileWithLoad = {
-                id: "create",
+                id: uuidv4(),
                 title: "Erstellen",
                 icon: Edit,
                 payload: {brightness: 0, color: "RRGGBB"},
@@ -44,7 +45,8 @@ export default function Lighting() {
                 <View style={Styles.tilesGrid}>
                     {tiles.map((tile) => 
                         <TileCard 
-                        key={tile.id} 
+                        id={tile.id}
+                        key={tile.id}
                         title={tile.title} 
                         icon={tile.icon} 
                         devices={tile.devices} 

@@ -15,15 +15,14 @@ export default function Layout() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false, // remove default headers
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, // slide-from-right animation
+        cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter, // slide-from-right animation
         transitionSpec: {
           open: { animation: "timing", config: { duration: 200 } },  // push duration 500ms
           close: { animation: "timing", config: { duration: 200 } }, // pop duration 500ms
         },
-        gestureEnabled: true, // swipe back gestures
+        gestureEnabled: false, // swipe back gestures
       }}
     >
-      {/* Main screens */}
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Lighting" component={LightingScreen} />
       <Stack.Screen name="Devices" component={DevicesScreen} />

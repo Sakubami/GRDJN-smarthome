@@ -1,16 +1,8 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { TileCardT } from "src/core/types/types";
 
-type Props = {
-  title: string;
-  icon: React.ElementType;
-  devices?: number;
-  onPress?: () => void;
-  style?: ViewStyle | ViewStyle[];
-  blank: boolean;
-};
-
-export default function TileCard({ title, icon: Icon, devices, onPress, style, blank}: Props) {
+export default function TileCard({ title, icon: Icon, devices, onPress, style, blank}: TileCardT) {
   return (
     <Pressable style={[Styles.card, style]} onPress={onPress}>
       <View style={Styles.cardHeader}>
