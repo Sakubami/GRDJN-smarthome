@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from 'react-native-uuid';
-import { LightSceneTileWithLoad, TileCardT } from "../types/types";
+import { LightSceneTileWithLoad, TileCardT } from "../types/Types";
 
 const SCENE_KEY = "scenes"
 const HOME_KEY = "home";
@@ -25,14 +25,14 @@ export async function loadHomeTiles(): Promise<TileCardT[]> {
 
 export async function addScene(newScene : Omit<LightSceneTileWithLoad, "id">) {
     const current = await loadScenes();
-    const tileWithID: LightSceneTileWithLoad = {id: uuid.v4(), ...newScene }
+    const tileWithID: LightSceneTileWithLoad = {id: uuid.v4() as string, ...newScene }
     const updated = [...current, tileWithID];
     await saveScenes(updated);
 }
 
 export async function addHomeTile(tile: Omit<TileCardT, "id">) {
     const current = await loadHomeTiles();
-    const tileWithID: TileCardT = {id: uuid.v4(), ...tile}
+    const tileWithID: TileCardT = {id: uuid.v4() as string, ...tile}
     const updated = [...current, tileWithID];
     await saveHomeTiles(updated);
 }

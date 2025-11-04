@@ -1,42 +1,47 @@
 
-import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Edit } from "lucide-react-native";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import uuid from 'react-native-uuid';
 import { loadHomeTiles } from "src/core/lighting/StorageManager";
 import { useBaseScreenControls } from "src/core/navigation/NavManager";
-import { NavigationProp, TileCardT } from "src/core/types/types";
+import { NavigationProp, TileCardT } from "src/core/types/Types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
-import { v4 as uuidv4 } from 'uuid';
 import TileCard from "../src/ui/components/TileCard";
 
 export default function Index() {
+    AsyncStorage.clear();
     useBaseScreenControls();
     
     const [tiles, setTiles] = useState<TileCardT[]>([]);
     const navigation = useNavigation<NavigationProp>();
     
-    useEffect(() => {
-        (async () => {
-            const savedTiles = await loadHomeTiles();
+    const loadTiles = useCallback(async () => {
+        const savedTiles = await loadHomeTiles();
 
-            const tile_create: TileCardT = {
-                id: uuidv4(),
-                title: "Erstellen",
-                icon: Edit,
-                onPress: () => {
-                    navigation.navigate("CreateScene");
-                    console.log("testbecauseiwanttoseehowmuchicanexecutelol");
-                },
-                blank: true
-            };
-
-            setTiles([...savedTiles, tile_create]) 
-        })();
-    }, []);
-
+        const tile_create: TileCardT = {
+            id: uuid.v4() as string,
+            title: "Erstellen",
+            icon: Edit,
+            onPress: () => {
+                navigation.navigate("CreateScene");
+                console.log("testbecauseiwanttoseehowmuchicanexecutelol");
+            },
+            blank: true
+        };
+        setTiles([...savedTiles, tile_create]);
+    }, [navigation]);
+    
+    useFocusEffect(
+        useCallback(() => {
+            loadTiles();
+        }, [loadTiles])
+    );
+  
     return (
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
             <DefaultHeader headerTitle="Home" createSeparation={true}/>

@@ -1,7 +1,7 @@
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 
-import { RootStackParamList } from "src/core/types/types";
+import { RootStackParamList } from "src/core/types/Types";
 import DevicesScreen from "./devices";
 import HomeScreen from "./index";
 import LightingScreen from "./lighting";

@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { usePathname } from "expo-router";
 import { ArrowBigLeft } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
-import { NavigationProp } from "src/core/types/types";
+import { NavigationProp } from "src/core/types/Types";
 import MenuButton from "./MenuButton";
 
 type Props = {

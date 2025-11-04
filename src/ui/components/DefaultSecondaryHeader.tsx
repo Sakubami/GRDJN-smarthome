@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { usePathname } from "expo-router";
 import { Home, Lightbulb, SatelliteDish } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
-import { NavigationProp, RootStackParamList } from "src/core/types/types";
+import { NavigationProp, RootStackParamList } from "src/core/types/Types";
 import MenuButton from "./MenuButton";
 
 export default function DefaultSecondaryHeader() {

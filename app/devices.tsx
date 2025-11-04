@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { loadScenes } from "src/core/lighting/StorageManager";
 import { useBaseScreenControls } from "src/core/navigation/NavManager";
-import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/types";
+import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/Types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
 import TileCard from "../src/ui/components/TileCard";
@@ -31,6 +31,7 @@ export default function Devices() {
                     {tiles.map((tile) => 
                         <TileCard 
                         id={tile.id}
+                        key={tile.id}
                         title={tile.title} 
                         icon={tile.icon} 
                         devices={tile.devices} 
