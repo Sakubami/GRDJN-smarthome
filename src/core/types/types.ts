@@ -1,5 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "expo-router";
+import { FC } from "react";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -9,8 +9,11 @@ export type RootStackParamList = {
   CreateScene: undefined;
 };
 
+export type WeightedScreen = FC & {
+    weight?: number;
+}
+
 export type NavigationProp = StackNavigationProp<RootStackParamList>;
-export const navigation = useNavigation<NavigationProp>();
 
 export type LightScenePayload = {
     brightness: number;

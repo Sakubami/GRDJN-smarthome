@@ -1,15 +1,18 @@
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import { Edit } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { loadTiles } from "src/core/lighting/LightingManager";
+import { useBaseScreenControls } from "src/core/navigation/NavManager";
 import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
 import TileCard from "../src/ui/components/TileCard";
 
 export default function Lighting() {
+    useBaseScreenControls();
+    
     const [tiles, setTiles] = useState<LightSceneTileWithLoad[]>([]);
     const navigation = useNavigation<NavigationProp>();
     
@@ -24,12 +27,12 @@ export default function Lighting() {
                 payload: {brightness: 0, color: "RRGGBB"},
                 onPress: () => {
                     navigation.navigate("CreateScene");
-                    console.log("something");
+                    console.log("testbecauseiwanttoseehowmuchicanexecutelol");
                 },
                 blank: true
             };
 
-            setTiles([...savedScenes, tile_create])
+            setTiles([...savedScenes, tile_create]) 
         })();
     }, []);
 

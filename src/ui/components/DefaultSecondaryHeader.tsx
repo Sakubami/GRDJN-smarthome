@@ -1,4 +1,5 @@
-import { useNavigation, usePathname } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { usePathname } from "expo-router";
 import { Home, Lightbulb, SatelliteDish } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
 import { NavigationProp, RootStackParamList } from "src/core/types/types";
@@ -14,7 +15,7 @@ export default function DefaultSecondaryHeader() {
 
     return (
         <View style={Styles.header} pointerEvents="box-none">
-            <CLickIcon onPress={() => handleChangeScreen("Home")} icon={Home}/>
+            <CLickIcon onPress={() => {handleChangeScreen("Home"); console.log(pathname)}} icon={Home}/>
             <CLickIcon onPress={() => handleChangeScreen("Lighting")} icon={Lightbulb}/>
             <CLickIcon onPress={() => handleChangeScreen("Devices")} icon={SatelliteDish}/>
         </View>

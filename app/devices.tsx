@@ -1,8 +1,9 @@
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import { Home, Paperclip } from "lucide-react-native";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { DeviceStatus } from "src/core/devices/DeviceManager";
+import { useBaseScreenControls } from "src/core/navigation/NavManager";
 import { NavigationProp } from "src/core/types/types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
@@ -17,6 +18,8 @@ type Tile = {
 }
 
 export default function Devices() {
+    useBaseScreenControls();
+    
     const tiles: Tile[] = [
         {id: "1", title: "Lichter", icon: Home, devices: 3, onPress: () => navigation.navigate("Options")},
         {id: "2", title: "Server", icon: Paperclip, devices: 1, onPress: () => DeviceStatus("2")},

@@ -17,8 +17,8 @@ export default function Layout() {
         headerShown: false, // remove default headers
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, // slide-from-right animation
         transitionSpec: {
-          open: { animation: "timing", config: { duration: 500 } },  // push duration 500ms
-          close: { animation: "timing", config: { duration: 500 } }, // pop duration 500ms
+          open: { animation: "timing", config: { duration: 200 } },  // push duration 500ms
+          close: { animation: "timing", config: { duration: 200 } }, // pop duration 500ms
         },
         gestureEnabled: true, // swipe back gestures
       }}

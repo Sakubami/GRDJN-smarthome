@@ -1,4 +1,5 @@
-import { useNavigation, usePathname } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { usePathname } from "expo-router";
 import { ArrowBigLeft } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationProp } from "src/core/types/types";
@@ -11,13 +12,14 @@ type Props = {
 
 export default function DefaultHeader({ headerTitle, createSeparation } : Props ) {
   const pathname = usePathname();
-  const isHomeScreen = pathname === "/";
+  const list = ["/Home", "/Devices", "/Lighting", "/"]
+  const isDefaultScreen = list.includes(pathname);
   const navigation = useNavigation<NavigationProp>();
 
     return(
         <View style={Styles.header} pointerEvents="box-none">
             <Text style={Styles.headerTitle} pointerEvents="none">{headerTitle}</Text>
-            {!isHomeScreen && <CLickIcon onPress={() => navigation.goBack()} icon={ArrowBigLeft}/>}
+            {!isDefaultScreen && <CLickIcon onPress={() => navigation.goBack()} icon={ArrowBigLeft}/>}
             {createSeparation && <View style={[Styles.divider, {position: "relative", bottom: -29}]}/>}
         </View>
     );
