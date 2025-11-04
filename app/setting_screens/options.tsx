@@ -1,11 +1,9 @@
-import DefaultHeader from "@/ui/components/DefaultHeaders";
-import { NavigationContainer } from "@react-navigation/native";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import DefaultHeader from "src/ui/components/DefaultHeaders";
 
 export default function Options() {
     return (
-        <NavigationContainer>
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
             <DefaultHeader headerTitle="GeräteOptionen" createSeparation={false}/>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{padding: 16}}>
@@ -14,7 +12,6 @@ export default function Options() {
                 </View>
             </ScrollView>
         </SafeAreaView>
-        </NavigationContainer>
     );
 }
 

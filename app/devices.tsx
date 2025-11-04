@@ -1,11 +1,11 @@
-import { DeviceStatus } from "@/core/devices/DeviceManager";
-import { navigation } from "@/core/types/types";
-import DefaultHeader from "@/ui/components/DefaultHeaders";
-import DefaultSecondaryHeader from "@/ui/components/DefaultSecondaryHeader";
-import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "expo-router";
 import { Home, Paperclip } from "lucide-react-native";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { DeviceStatus } from "src/core/devices/DeviceManager";
+import { NavigationProp } from "src/core/types/types";
+import DefaultHeader from "src/ui/components/DefaultHeaders";
+import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
 import TileCard from "../src/ui/components/TileCard";
 
 type Tile = {
@@ -24,8 +24,8 @@ export default function Devices() {
         {id: "4", title: "test", icon: Paperclip, devices: 1, onPress: () => DeviceStatus("4")},
         {id: "5", title: "test", icon: Paperclip, devices: 1, onPress: () => DeviceStatus("5")},
     ]
+    const navigation = useNavigation<NavigationProp>();
      return (
-        <NavigationContainer>
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
             <DefaultHeader headerTitle="Geräte" createSeparation={true}/>
             <DefaultSecondaryHeader/>
@@ -35,8 +35,7 @@ export default function Devices() {
                 </View>
             </ScrollView>
         </SafeAreaView>
-        </NavigationContainer>
-     );
+    );
 }
 
 const Styles = StyleSheet.create({

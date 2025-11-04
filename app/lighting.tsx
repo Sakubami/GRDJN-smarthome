@@ -1,16 +1,17 @@
-import { loadTiles } from "@/core/lighting/LightingManager";
-import { LightSceneTileWithLoad, navigation } from "@/core/types/types";
-import DefaultHeader from "@/ui/components/DefaultHeaders";
-import DefaultSecondaryHeader from "@/ui/components/DefaultSecondaryHeader";
-import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "expo-router";
 import { Edit } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { loadTiles } from "src/core/lighting/LightingManager";
+import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/types";
+import DefaultHeader from "src/ui/components/DefaultHeaders";
+import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
 import TileCard from "../src/ui/components/TileCard";
 
 export default function Lighting() {
     const [tiles, setTiles] = useState<LightSceneTileWithLoad[]>([]);
+    const navigation = useNavigation<NavigationProp>();
     
     useEffect(() => {
         (async () => {
@@ -32,8 +33,7 @@ export default function Lighting() {
         })();
     }, []);
 
-     return (
-        <NavigationContainer>
+    return (
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
             <DefaultHeader headerTitle="Lichtszenen" createSeparation={true}/>
             <DefaultSecondaryHeader/>
@@ -51,7 +51,6 @@ export default function Lighting() {
                 </View>
             </ScrollView>
         </SafeAreaView>
-        </NavigationContainer>
      );
 }
 

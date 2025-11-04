@@ -1,8 +1,8 @@
-import { navigation } from "@/core/types/types";
-import CLickIcon from "@/ui/components/ClickIcon";
-import { usePathname } from "expo-router";
+import { useNavigation, usePathname } from "expo-router";
 import { ArrowBigLeft } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
+import { NavigationProp } from "src/core/types/types";
+import CLickIcon from "src/ui/components/ClickIcon";
 
 type Props = {
     headerTitle?: string;
@@ -12,6 +12,7 @@ type Props = {
 export default function DefaultHeader({ headerTitle, createSeparation } : Props ) {
   const pathname = usePathname();
   const isHomeScreen = pathname === "/";
+  const navigation = useNavigation<NavigationProp>();
 
     return(
         <View style={Styles.header} pointerEvents="box-none">

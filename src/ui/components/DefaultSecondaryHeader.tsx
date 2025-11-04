@@ -1,12 +1,12 @@
-import { navigation, RootStackParamList } from "@/core/types/types";
-import CLickIcon from "@/ui/components/ClickIcon";
-import { usePathname } from "expo-router";
+import { useNavigation, usePathname } from "expo-router";
 import { Home, Lightbulb, SatelliteDish } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
+import { NavigationProp, RootStackParamList } from "src/core/types/types";
+import CLickIcon from "src/ui/components/ClickIcon";
 
 export default function DefaultSecondaryHeader() {
     const pathname = usePathname();
-  
+    const navigation = useNavigation<NavigationProp>();
     const handleChangeScreen = (path: keyof RootStackParamList) => {
         if (path in ({} as RootStackParamList)) return;
         navigation.navigate(path)
