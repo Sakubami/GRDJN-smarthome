@@ -1,5 +1,6 @@
+import { navigation } from "@/core/types/types";
 import CLickIcon from "@/ui/components/ClickIcon";
-import { router, usePathname } from "expo-router";
+import { usePathname } from "expo-router";
 import { ArrowBigLeft } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -15,7 +16,7 @@ export default function DefaultHeader({ headerTitle, createSeparation } : Props 
     return(
         <View style={Styles.header} pointerEvents="box-none">
             <Text style={Styles.headerTitle} pointerEvents="none">{headerTitle}</Text>
-            {!isHomeScreen && <CLickIcon onPress={() => router.back()} icon={ArrowBigLeft}/>}
+            {!isHomeScreen && <CLickIcon onPress={() => navigation.goBack()} icon={ArrowBigLeft}/>}
             {createSeparation && <View style={[Styles.divider, {position: "relative", bottom: -29}]}/>}
         </View>
     );

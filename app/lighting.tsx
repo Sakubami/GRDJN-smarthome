@@ -1,8 +1,8 @@
 import { loadTiles } from "@/core/lighting/LightingManager";
-import { LightSceneTileWithLoad } from "@/core/types/types";
+import { LightSceneTileWithLoad, navigation } from "@/core/types/types";
 import DefaultHeader from "@/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "@/ui/components/DefaultSecondaryHeader";
-import { router } from "expo-router";
+import { NavigationContainer } from "@react-navigation/native";
 import { Edit } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -22,7 +22,7 @@ export default function Lighting() {
                 icon: Edit,
                 payload: {brightness: 0, color: "RRGGBB"},
                 onPress: () => {
-                    router.push("/setting_screens/create_lightscene");
+                    navigation.navigate("CreateScene");
                     console.log("something");
                 },
                 blank: true
@@ -33,6 +33,7 @@ export default function Lighting() {
     }, []);
 
      return (
+        <NavigationContainer>
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
             <DefaultHeader headerTitle="Lichtszenen" createSeparation={true}/>
             <DefaultSecondaryHeader/>
@@ -50,6 +51,7 @@ export default function Lighting() {
                 </View>
             </ScrollView>
         </SafeAreaView>
+        </NavigationContainer>
      );
 }
 

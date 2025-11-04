@@ -1,21 +1,22 @@
+import { navigation, RootStackParamList } from "@/core/types/types";
 import CLickIcon from "@/ui/components/ClickIcon";
-import { router, usePathname } from "expo-router";
+import { usePathname } from "expo-router";
 import { Home, Lightbulb, SatelliteDish } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
 
 export default function DefaultSecondaryHeader() {
     const pathname = usePathname();
-
-    const handleChangeScreen = (path: string) => {
-        if (pathname === path) return;
-        router.push(path);
+  
+    const handleChangeScreen = (path: keyof RootStackParamList) => {
+        if (path in ({} as RootStackParamList)) return;
+        navigation.navigate(path)
     }
 
     return (
         <View style={Styles.header} pointerEvents="box-none">
-            <CLickIcon onPress={() => handleChangeScreen("/")} icon={Home}/>
-            <CLickIcon onPress={() => handleChangeScreen("/lighting")} icon={Lightbulb}/>
-            <CLickIcon onPress={() => handleChangeScreen("/devices")} icon={SatelliteDish}/>
+            <CLickIcon onPress={() => handleChangeScreen("Home")} icon={Home}/>
+            <CLickIcon onPress={() => handleChangeScreen("Lighting")} icon={Lightbulb}/>
+            <CLickIcon onPress={() => handleChangeScreen("Devices")} icon={SatelliteDish}/>
         </View>
     );
 }
