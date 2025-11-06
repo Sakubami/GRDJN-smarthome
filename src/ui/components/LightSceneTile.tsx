@@ -1,12 +1,22 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { TileCardT } from "src/core/types/Types";
+import { iconFromString } from "src/core/Helpers";
+import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/Types";
 
-export default function TileCard({ id, title, icon: Icon, devices, onPress, style, blank}: TileCardT) {
+export default function TileCard({ id, payload, title, icon, devices, onPress, style, blank}: LightSceneTileWithLoad) {
+const Icon1 = iconFromString(icon);
+const navigation = useNavigation<NavigationProp>();
+const handlePress = !onPress || typeof onPress !== "function"
+  ? () => {
+      console.log("something")
+    }
+  : onPress;
+
   return (
-    <Pressable style={[Styles.card, style]} onPress={onPress}>
+    <Pressable style={[Styles.card, style]} onPress={handlePress}>
       <View style={Styles.cardHeader}>
-        <Icon size={24} strokeWidth={1.5} margin={8}/>
+        <Icon1 size={24} strokeWidth={1.5} margin={8}/>
         <Text style={Styles.title}>{title}</Text>
       </View>
         {!blank && (<View style={[Styles.divider, {position: "relative", top: 0}]}/>)}

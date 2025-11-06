@@ -23,7 +23,21 @@ export async function loadHomeTiles(): Promise<TileCardT[]> {
     return data ? JSON.parse(data) : [];
 }
 
-export async function addScene(newScene : Omit<LightSceneTileWithLoad, "id">) {
+export async function getSingleSceneByTitle(title: string): Promise<LightSceneTileWithLoad> {
+    const scenes = await loadScenes();
+    const found = scenes.find(scene => scene.title === title);
+    if (found) return found;
+
+    return {
+        id: uuid.v4() as string,
+        title: "NULL",
+        onPress: () => {},
+        icon: "HelpCircle",
+        blank: false
+    }
+}
+
+export async function addSceneTile(newScene : Omit<LightSceneTileWithLoad, "id">) {
     const current = await loadScenes();
     const tileWithID: LightSceneTileWithLoad = {id: uuid.v4() as string, ...newScene }
     const updated = [...current, tileWithID];

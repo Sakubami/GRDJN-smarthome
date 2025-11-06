@@ -6,6 +6,7 @@ import DevicesScreen from "./devices";
 import HomeScreen from "./index";
 import LightingScreen from "./lighting";
 import CreateLightSceneScreen from "./setting_screens/create_lightscene";
+import EditSceneScreen from "./setting_screens/edit_lightscene";
 import OptionsScreen from "./setting_screens/options";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -17,8 +18,8 @@ export default function Layout() {
         headerShown: false, // remove default headers
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter, // slide-from-right animation
         transitionSpec: {
-          open: { animation: "timing", config: { duration: 200 } },  // push duration 500ms
-          close: { animation: "timing", config: { duration: 200 } }, // pop duration 500ms
+          open: { animation: "timing", config: { duration: 250 } },  // push duration 500ms
+          close: { animation: "timing", config: { duration: 250 } }, // pop duration 500ms
         },
         gestureEnabled: false, // swipe back gestures
       }}
@@ -29,10 +30,8 @@ export default function Layout() {
 
       {/* Settings / create screens */}
       <Stack.Screen name="Options" component={OptionsScreen} />
-      <Stack.Screen
-        name="CreateScene"
-        component={CreateLightSceneScreen}
-      />
+      <Stack.Screen name="CreateScene" component={CreateLightSceneScreen}/>
+      <Stack.Screen name="EditScene" component={EditSceneScreen}/>
     </Stack.Navigator>
   );
 }

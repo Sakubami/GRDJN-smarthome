@@ -1,23 +1,18 @@
-import { useNavigation } from "@react-navigation/native";
-import { usePathname } from "expo-router";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Home, Lightbulb, SatelliteDish } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
-import { NavigationProp, RootStackParamList } from "src/core/types/Types";
+import { NavigationProp } from "src/core/types/Types";
 import MenuButton from "./MenuButton";
 
 export default function DefaultSecondaryHeader() {
-    const pathname = usePathname();
     const navigation = useNavigation<NavigationProp>();
-    const handleChangeScreen = (path: keyof RootStackParamList) => {
-        if (path in ({} as RootStackParamList)) return;
-        navigation.navigate(path)
-    }
+    const route = useRoute();
 
     return (
         <View style={Styles.header} pointerEvents="box-none">
-            <MenuButton onPress={() => {handleChangeScreen("Home"); console.log(pathname)}} icon={Home}/>
-            <MenuButton onPress={() => handleChangeScreen("Lighting")} icon={Lightbulb}/>
-            <MenuButton onPress={() => handleChangeScreen("Devices")} icon={SatelliteDish}/>
+            <MenuButton onPress={() => {route.name !== "Home" && navigation.replace("Home")}} icon={Home}/>
+            <MenuButton onPress={() => {route.name !== "Lighting" && navigation.replace("Lighting")}} icon={Lightbulb}/>
+            <MenuButton onPress={() => {route.name !== "Devices" && navigation.replace("Devices")}} icon={SatelliteDish}/>
         </View>
     );
 }

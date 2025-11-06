@@ -8,12 +8,13 @@ export type RootStackParamList = {
   Devices: undefined;
   Options: undefined;
   CreateScene: undefined;
+  EditScene: {tile: LightSceneTileWithLoad};
 };
 
 export type TileCardT = {
     id: string;
     title: string;
-    icon: React.ElementType;
+    icon: string;
     devices?: number;
     onPress?: () => void;
     style?: ViewStyle | ViewStyle[];
@@ -35,8 +36,9 @@ export type LightSceneTileWithLoad = {
     id: string;
     title: string;
     devices?: number;
-    icon: React.ElementType;
-    onPress: () => void;
+    onPress?: () => void;
+    icon: string;
     payload?: LightScenePayload;
+    style?: ViewStyle | ViewStyle[];
     blank: boolean;
 }

@@ -1,7 +1,5 @@
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { Edit } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,37 +9,38 @@ import { useBaseScreenControls } from "src/core/navigation/NavManager";
 import { NavigationProp, TileCardT } from "src/core/types/Types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
-import TileCard from "../src/ui/components/TileCard";
+import DefaultTile from "../src/ui/components/DefaultTile";
 
 export default function Index() {
-    AsyncStorage.clear();
     useBaseScreenControls();
-    
-    const [tiles, setTiles] = useState<TileCardT[]>([]);
+  
+    const [tiles, setTiles] = useState<TileCardT[] | null>(null); // null = not loaded yet
     const navigation = useNavigation<NavigationProp>();
-    
+
     const loadTiles = useCallback(async () => {
         const savedTiles = await loadHomeTiles();
 
         const tile_create: TileCardT = {
             id: uuid.v4() as string,
             title: "Erstellen",
-            icon: Edit,
+            icon: "Edit",
             onPress: () => {
-                navigation.navigate("CreateScene");
-                console.log("testbecauseiwanttoseehowmuchicanexecutelol");
+            navigation.navigate("CreateScene");
             },
             blank: true
         };
+
         setTiles([...savedTiles, tile_create]);
     }, [navigation]);
-    
+
     useFocusEffect(
         useCallback(() => {
             loadTiles();
         }, [loadTiles])
     );
   
+    if (!tiles) return <View style={{ flex: 1, backgroundColor: "#e6e6e6" }} />;
+
     return (
         <SafeAreaView style={{ flex:1, backgroundColor:"#e6e6e6"}}>
             <DefaultHeader headerTitle="Home" createSeparation={true}/>
@@ -49,7 +48,7 @@ export default function Index() {
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{padding: 16}}>
                 <View style={Styles.tilesGrid}>
                     {tiles.map((tile) => 
-                        <TileCard 
+                        <DefaultTile 
                         id={tile.id}
                         key={tile.id}
                         title={tile.title} 
