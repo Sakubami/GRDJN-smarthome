@@ -1,18 +1,23 @@
+import { RouteProp, useRoute } from "@react-navigation/native";
 import { Pen } from "lucide-react-native";
 import { useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { addHomeTile } from "src/core/lighting/StorageManager";
-import { TileCardT } from "src/core/types/Types";
+import { updateSceneTile } from "src/core/lighting/StorageManager";
+import { LightSceneTileWithLoad, RootStackParamList } from "src/core/types/Types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
+import FancyTextBox from "src/ui/components/FancyTextBox";
 import MenuButton from "src/ui/components/MenuButton";
 import Toast from "src/ui/components/Toast";
+
+type EditSceneRouteProp = RouteProp<RootStackParamList, 'EditScene'>;
 
 export default function EditScene() {
     const [tileTitle, setTileTitle] = useState("");
     const [showToast, setShowToast] = useState(false);
     const [showToast1, setShowToast1] = useState(false);
+    const route = useRoute<EditSceneRouteProp>();
+    const { tile } = route.params;
 
     const handleSave = async () => {
         if(!tileTitle.trim()) {
@@ -21,12 +26,13 @@ export default function EditScene() {
             return;
         }
 
-        const newTile: Omit<TileCardT, "id"> = {
-            title: tileTitle,
-            icon: "Paperclip",
-            blank: false
+        const newTile: LightSceneTileWithLoad = {
+          title: tileTitle,
+          icon: tile.icon,
+          blank: tile.blank,
+          id: tile.id
         }
-        await addHomeTile(newTile);
+        await updateSceneTile(newTile);
 
         setTileTitle("");
 
@@ -40,12 +46,11 @@ export default function EditScene() {
             {showToast && <Toast message={"Der Name kann nicht leer sein"}/>}
             {showToast1 && <Toast message={"Lichtszene gespeichert!"}/>}
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{padding: 16}}>
-                <TextInput
-                    value={tileTitle}
-                    onChangeText={setTileTitle}
-                    placeholder="Enter tile title"
-                    style={Styles.text} />
-                <MenuButton icon={Pen} onPress={handleSave}/>
+              <FancyTextBox onTextChange={setTileTitle} title={"this is a test"} placeholder={tile.title}/>
+                <View style={{flexDirection: "row", justifyContent: "space-between", alignContent: "center", padding: 10}}>
+                    <MenuButton icon={Pen} onPress={handleSave}/>
+                    <Text style={{color: "#000", margin: 3}}>Lichtszene speichern</Text>
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
@@ -64,5 +69,8 @@ const Styles = StyleSheet.create({
     padding: 8,
     marginBottom: 12,
     borderRadius: 8,
+  },
+  container: {
+    marginVertical: 8
   }
 })

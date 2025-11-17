@@ -1,4 +1,5 @@
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -30,7 +31,17 @@ export default function Index() {
             blank: true
         };
 
-        setTiles([...savedTiles, tile_create]);
+        const tile_clear: TileCardT = {
+            id: uuid.v4() as string,
+            title: "Clear",
+            icon: "Edit",
+            onPress: () => {
+            AsyncStorage.clear();
+            },
+            blank: true
+        };
+
+        setTiles([...savedTiles, tile_create, tile_clear]);
     }, [navigation]);
 
     useFocusEffect(

@@ -3,12 +3,12 @@ import { FC } from "react";
 import { ViewStyle } from "react-native";
 
 export type RootStackParamList = {
-  Home: undefined;
-  Lighting: undefined;
-  Devices: undefined;
-  Options: undefined;
-  CreateScene: undefined;
-  EditScene: {tile: LightSceneTileWithLoad};
+    Home: undefined;
+    Lighting: undefined;
+    Devices: undefined;
+    Options: undefined;
+    CreateScene: undefined;
+    EditScene: { tile: LightSceneTileWithLoad };
 };
 
 export type TileCardT = {
@@ -30,6 +30,11 @@ export type NavigationProp = StackNavigationProp<RootStackParamList>;
 export type LightScenePayload = {
     brightness: number;
     color: string;
+}
+
+export type FancyTextBoxT = {
+    onTextChange: (text: string) => void;
+    title: string;
 }
 
 export type LightSceneTileWithLoad = {

@@ -37,6 +37,28 @@ export async function getSingleSceneByTitle(title: string): Promise<LightSceneTi
     }
 }
 
+export async function updateSceneTile(replacement: LightSceneTileWithLoad) {
+    const current = await loadScenes();
+    const index = current.findIndex(scene => scene.id === replacement.id);
+    if (index !== -1) {
+        current[index] = replacement;
+    } else {
+        current.push(replacement);
+    }
+    await saveScenes(current);
+}
+
+export async function replaceHomeTile(replacement: TileCardT) {
+    const current = await loadHomeTiles();
+    const index = current.findIndex(scene => scene.id === replacement.id);
+    if (index !== -1) {
+        current[index] = replacement;
+    } else {
+        current.push(replacement);
+    }
+    await saveHomeTiles(current);
+}
+
 export async function addSceneTile(newScene : Omit<LightSceneTileWithLoad, "id">) {
     const current = await loadScenes();
     const tileWithID: LightSceneTileWithLoad = {id: uuid.v4() as string, ...newScene }
