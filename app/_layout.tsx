@@ -6,8 +6,8 @@ import DevicesScreen from "./devices";
 import HomeScreen from "./index";
 import LightingScreen from "./lighting";
 import CreateLightSceneScreen from "./setting_screens/create_lightscene";
+import OptionsScreen from "./setting_screens/device_options";
 import EditSceneScreen from "./setting_screens/edit_lightscene";
-import OptionsScreen from "./setting_screens/options";
 
 const Stack = createStackNavigator<RootStackParamList>();
 

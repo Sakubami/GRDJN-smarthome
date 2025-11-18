@@ -1,10 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import { iconFromString } from "src/core/Helpers";
 import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/Types";
 
-export default function TileCard({ id, payload, title, icon, devices, onPress, style, blank}: LightSceneTileWithLoad) {
+export default function TileCard({ isActive, onToggle, id, payload, title, icon, devices, onPress, style, blank}: LightSceneTileWithLoad) {
 const Icon1 = iconFromString(icon);
 const navigation = useNavigation<NavigationProp>();
 const handlePress = !onPress || typeof onPress !== "function"
@@ -19,6 +19,13 @@ const handlePress = !onPress || typeof onPress !== "function"
         <Icon1 size={24} strokeWidth={1.5} margin={8}/>
         <Text style={Styles.title}>{title}</Text>
       </View>
+        {!blank &&(<View style={Styles.switchContainer}>
+          <Switch
+            value={isActive}
+            onValueChange={(value) => { if (value) onToggle?.(); }}
+            ios_backgroundColor="#ccc"
+          />
+        </View>)}
         {!blank && (<View style={[Styles.divider, {position: "relative", top: 0}]}/>)}
         {devices !== undefined && <Text style={Styles.devices}>{devices} devices</Text>}
         {!blank && (<View style={[Styles.divider, {position: "relative", bottom: -5}]}/>)}
@@ -58,5 +65,10 @@ const Styles = StyleSheet.create({
     marginVertical: 2,
     alignSelf: "center",
     opacity: 0.2
+  },
+  switchContainer: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
   }
 });

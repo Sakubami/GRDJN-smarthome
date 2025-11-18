@@ -35,6 +35,7 @@ export type LightScenePayload = {
 export type FancyTextBoxT = {
     onTextChange: (text: string) => void;
     title: string;
+    placeholder: string;
 }
 
 export type LightSceneTileWithLoad = {
@@ -46,4 +47,6 @@ export type LightSceneTileWithLoad = {
     payload?: LightScenePayload;
     style?: ViewStyle | ViewStyle[];
     blank: boolean;
+    isActive?: boolean;
+    onToggle?: () => void;
 }

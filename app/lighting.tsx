@@ -8,13 +8,14 @@ import { useBaseScreenControls } from "src/core/navigation/NavManager";
 import { LightSceneTileWithLoad, NavigationProp } from "src/core/types/Types";
 import DefaultHeader from "src/ui/components/DefaultHeaders";
 import DefaultSecondaryHeader from "src/ui/components/DefaultSecondaryHeader";
-import DefaultTile from "../src/ui/components/DefaultTile";
+import TileCard from "src/ui/components/LightSceneTile";
 
 export default function Lighting() {
     useBaseScreenControls();
     
     const [tiles, setTiles] = useState<LightSceneTileWithLoad[] | null >(null);
     const navigation = useNavigation<NavigationProp>();
+    const [activeId, setActiveId] = useState<string | null>(null);
 
     const loadTiles = useCallback(async () => {
         const savedTiles = await loadScenes();
@@ -53,7 +54,7 @@ export default function Lighting() {
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{padding: 16}}>
                 <View style={Styles.tilesGrid}>
                     {tiles.map((tile) => 
-                        <DefaultTile
+                        <TileCard
                         id={tile.id}
                         key={tile.id}
                         title={tile.title} 
@@ -61,7 +62,12 @@ export default function Lighting() {
                         devices={tile.devices} 
                         style={{ width: "48%", marginBottom: 8 }}
                         blank = {tile.blank}
-                        onPress={tile.onPress}/> )}
+                        onPress={tile.onPress}
+                        isActive={activeId === tile.id}
+                        onToggle={() => {
+                            setActiveId(tile.id);
+                            console.log("test");
+                        }}/> )}
                 </View>
             </ScrollView>
         </SafeAreaView>

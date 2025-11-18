@@ -21,6 +21,7 @@ const Styles = StyleSheet.create({
         fontWeight: "600",
         color: "#333",
         marginBottom: 4,
+        marginLeft: 11
     },
     input: {
         backgroundColor: "#fff",
